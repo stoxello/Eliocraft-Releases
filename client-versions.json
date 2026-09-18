@@ -1,11 +1,17 @@
 {
   "schemaVersion": 1,
-  "latest": "1.9",
+  "latest": "1.10",
   "channels": {
+    "1.10": {
+      "version": "1.10.5",
+      "url": "https://github.com/stoxello/Eliocraft-Releases/releases/download/client-v1.10.5/Eliocraft-1.10.5-win-x64.zip",
+      "sha256Url": "https://github.com/stoxello/Eliocraft-Releases/releases/download/client-v1.10.5/Eliocraft-1.10.5-win-x64.zip.sha256",
+      "executable": "Eliocraft.exe"
+    },
     "1.9": {
-      "version": "1.9.13",
-      "url": "https://github.com/stoxello/Eliocraft-Releases/releases/download/client-v1.9.13/Eliocraft-1.9.13-win-x64.zip",
-      "sha256Url": "https://github.com/stoxello/Eliocraft-Releases/releases/download/client-v1.9.13/Eliocraft-1.9.13-win-x64.zip.sha256",
+      "version": "1.9.21",
+      "url": "https://github.com/stoxello/Eliocraft-Releases/releases/download/client-v1.9.21/Eliocraft-1.9.21-win-x64.zip",
+      "sha256Url": "https://github.com/stoxello/Eliocraft-Releases/releases/download/client-v1.9.21/Eliocraft-1.9.21-win-x64.zip.sha256",
       "executable": "Eliocraft.exe"
     },
     "1.8": {
