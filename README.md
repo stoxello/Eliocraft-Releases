@@ -1,6 +1,6 @@
-# Chunk Survival Releases
+# Eliocraft Releases
 
-Public distribution hub for the Chunk Survival game client and launcher.
+Public distribution hub for the Eliocraft game client and launcher.
 Compiled binaries are attached to GitHub Releases; this repository holds only
 distribution metadata, including the `client-versions.json` catalog the launcher
 uses to find and install clients. There is no game source here.
@@ -8,21 +8,21 @@ uses to find and install clients. There is no game source here.
 ## What you get
 
 - **Client** — the self-contained Windows x64 game, published per version as
-  `ChunkSurvival-<version>-win-x64.zip` plus a `.sha256` checksum.
+  `Eliocraft-<version>-win-x64.zip` plus a `.sha256` checksum.
 - **Launcher** — the stable entry point that downloads and installs the correct
   client for your network protocol line. Published as
-  `ChunkSurvival-Launcher-<version>-win-x64.zip` plus a `.sha256` checksum.
+  `Eliocraft-Launcher-<version>-win-x64.zip` plus a `.sha256` checksum.
 - **`client-versions.json`** — the catalog mapping each network protocol line to
   the newest compatible client patch release.
 
 ## Quick start
 
 1. Download the latest **launcher** from the
-   [Releases](https://github.com/stoxello/ChunkSurvival-Releases/releases) page.
+   [Releases](https://github.com/stoxello/Eliocraft-Releases/releases) page.
 2. Run it. The launcher reads `client-versions.json`, downloads the newest
    client for your protocol line, and starts the game.
 
-Or download a specific **client** ZIP directly and run `ChunkSurvival.exe`.
+Or download a specific **client** ZIP directly and run `Eliocraft.exe`.
 
 ## System requirements
 
@@ -34,50 +34,31 @@ Or download a specific **client** ZIP directly and run `ChunkSurvival.exe`.
 
 The launcher is the stable entry point for versioned clients:
 
-- Files live under `%LOCALAPPDATA%\ChunkSurvival`:
+- Files live under `%LOCALAPPDATA%\Eliocraft`:
   `versions\<version>\` for extracted clients, `launcher-cache\` for cached
   catalog data and downloads.
 - It supports direct connection with handoff arguments, e.g.:
-  `ChunkSurvival.Launcher.exe --protocol 1.8 --connect play.example.com:25599`
+  `Eliocraft.Launcher.exe --protocol 1.8 --connect play.example.com:25599`
   (`--version` is an alias for `--protocol`; `--manifest` accepts an HTTPS or
   `file:` catalog URL).
 - When a client is incompatible with a selected server, the launcher starts the
   correct version and the game hands back to it automatically.
 
-## client-versions.json
-
-```json
-{
-  "schemaVersion": 1,
-  "latest": "1.8",
-  "channels": {
-    "1.8": {
-      "version": "1.8.0",
-      "url": "https://github.com/stoxello/ChunkSurvival-Releases/releases/download/client-v1.8.0/ChunkSurvival-1.8.0-win-x64.zip",
-      "sha256Url": "https://github.com/stoxello/ChunkSurvival-Releases/releases/download/client-v1.8.0/ChunkSurvival-1.8.0-win-x64.zip.sha256",
-      "executable": "ChunkSurvival.exe"
-    }
-  }
-}
-```
-
-Each channel key is a network protocol line (`major.minor`). Server and client
-require an exact protocol match; the catalog points at the newest compatible
-patch release for that line. The catalog updates automatically after each client
-release.
+ 
+ 
 
 ## Verifying downloads
 
 Each release asset has a companion `*.sha256` file. Verify with PowerShell:
 
 ```powershell
-Get-FileHash .\ChunkSurvival-1.8.0-win-x64.zip -Algorithm SHA256
+Get-FileHash .\Eliocraft-1.x.x-win-x64.zip -Algorithm SHA256
 ```
 
 or on Linux/macOS:
 
 ```bash
-sha256sum ChunkSurvival-1.8.0-win-x64.zip
+sha256sum Eliocraft-1.x.x-win-x64.zip
 ```
 
 ## Versioning
@@ -88,4 +69,4 @@ sha256sum ChunkSurvival-1.8.0-win-x64.zip
   patch tag and update the catalog entry instead.
 - Launcher releases use independent `launcher-vX.Y.Z` tags.
 - The game server is distributed separately in
-  [Chunk Survival Server](https://github.com/stoxello/ChunkSurvival-Server).
+  [Eliocraft Server](https://github.com/stoxello/Eliocraft-Server).
