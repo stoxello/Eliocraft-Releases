@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eliocraft — Releases</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #0b1118; color: #e4ecf5; }
+  a { color: #7ee08a; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  header { background: #121a24; padding: 22px 28px; border-bottom: 1px solid #22303f; display: flex; align-items: center; gap: 16px; }
+  .logo { width: 40px; height: 40px; background: #1e2a36; border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+  .logo img { width: 100%; height: 100%; object-fit: contain; }
+  header h1 { margin: 0; font-size: 22px; letter-spacing: 0; }
+  header h1 span { color: #7ee08a; }
+  header .sub { margin-top: 4px; color: #8a9aa8; font-size: 14px; }
+
+  main { width: min(100% - 32px, 1160px); margin: 28px auto; display: grid; gap: 22px; }
+
+  .hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(300px, 1fr); gap: 24px; align-items: center;
+    background: #131d2a; border: 1px solid #263441; border-radius: 12px; padding: 22px; }
+  .hero .art { border-radius: 8px; overflow: hidden; background: #0b1118; }
+  .hero .art img { width: 100%; display: block; }
+  .hero h2 { margin: 0 0 8px; font-size: 26px; line-height: 1.2; }
+  .hero p { margin: 0 0 14px; color: #aab8c4; line-height: 1.55; }
+  .hero .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .tag { background: #1e2a38; border: 1px solid #2f4054; border-radius: 999px; padding: 4px 12px; font-size: 12px; color: #c5d4e6; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px;
+    background: #2f7a38; color: #fff; border: 0; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600;
+    transition: background .15s, transform .1s; text-decoration: none; }
+  .btn:hover { background: #3a8f45; text-decoration: none; }
+  .btn:active { transform: scale(0.98); }
+  .btn.ghost { background: transparent; border: 1px solid #3a4b60; color: #d8e2ec; }
+  .btn.ghost:hover { background: #1a2635; border-color: #5f8f68; color: #fff; }
+  .btn.big { padding: 13px 22px; font-size: 15px; }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn .meta { font-weight: 400; opacity: 0.85; font-size: 12px; }
+
+  .banner { padding: 12px 14px; border-radius: 8px; font-size: 13.5px; line-height: 1.5;
+    background: #1b2a36; border: 1px solid #2c4050; color: #c8d6e6; margin: 0 0 6px; }
+  .banner.warn { background: #2a2318; border-color: #5a4a1f; color: #f0d896; }
+  .banner .row { display: flex; gap: 14px; align-items: flex-start; }
+  .banner strong { color: inherit; }
+
+  .release { background: #131d2a; border: 1px solid #263441; border-radius: 10px; padding: 18px 20px;
+    display: grid; gap: 14px; }
+  .release.latest { border-color: #3a6f4a; background: linear-gradient(180deg, #16222e 0%, #131d2a 100%); }
+  .release-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .release-head .name { font-size: 17px; font-weight: 600; }
+  .release-head .version { background: #263441; color: #9fb3c8; font-size: 13px; padding: 2px 10px; border-radius: 999px; font-weight: 500; }
+  .release-head .date { color: #8a9aa8; font-size: 13px; margin-left: auto; }
+  .release-body { color: #aab8c4; font-size: 14px; line-height: 1.55; }
+  .release-body .changelog { color: #7a8a98; font-size: 13px; margin-top: 8px; word-break: break-all; }
+  .release-assets { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+  .asset { display: inline-flex; align-items: center; gap: 8px; padding: 7px 13px;
+    background: #1a2635; border: 1px solid #2c4050; border-radius: 6px; font-size: 13px; color: #d8e2ec; text-decoration: none; }
+  .asset:hover { border-color: #4a7a5a; text-decoration: none; }
+  .asset .ico { font-size: 15px; }
+  .asset.win { border-color: #2f5a7a; }
+  .asset.msix { border-color: #5a3f7a; }
+  .asset.sha { border-color: #3a4a3a; color: #9ab; font-size: 12px; }
+
+  .shots { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-top: 4px; }
+  .shot { background: #131d2a; border: 1px solid #263441; border-radius: 8px; overflow: hidden; }
+  .shot img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }
+  .shot .cap { padding: 8px 11px; font-size: 12.5px; color: #9aa8b6; }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .panel { background: #131d2a; border: 1px solid #263441; border-radius: 10px; padding: 18px 20px; }
+  .panel h3 { margin: 0 0 10px; font-size: 16px; }
+  .panel p { margin: 0 0 12px; color: #aab8c4; line-height: 1.55; font-size: 14px; }
+  ul.feat { margin: 0; padding-left: 18px; color: #aab8c4; font-size: 14px; line-height: 1.6; }
+  ul.feat li { margin-bottom: 6px; }
+
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+  .gallery .item { background: #131d2a; border: 1px solid #263441; border-radius: 8px; overflow: hidden; aspect-ratio: 1; }
+  .gallery .item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gallery .item:hover { border-color: #4a7a5a; }
+
+  footer { color: #6a7a88; font-size: 13px; text-align: center; padding: 24px 16px; border-top: 1px solid #22303f; margin-top: 10px; }
+  footer a { color: #8aa0b0; }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .cols { grid-template-columns: 1fr; }
+    .release-head .date { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><img src="images/eliocraft-icon.png" alt="Eliocraft"></div>
+  <div>
+    <h1>Elio<span>craft</span> — Releases</h1>
+    <div class="sub">Launcher, client, and assets for the Eliocraft game.</div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="art">
+      <img src="images/gameplay-hero.png" alt="Eliocraft in-game screenshot">
+    </div>
+    <div>
+      <h2>The latest launcher is live.</h2>
+      <p>Eliocraft is a multiplayer sandbox game built in Unity with a C# server stack. The launcher keeps your
+      client updated, signs you in, and launches the right build for your world. Grab the Windows package below
+      or pick another platform from the release archive.</p>
+      <div class="tags">
+        <span class="tag">Unity client</span>
+        <span class="tag">C# server</span>
+        <span class="tag">Cross-platform</span>
+        <span class="tag">Skins &amp; cosmetics</span>
+      </div>
+      <div class="btn-row">
+        <a class="btn big" href="https://github.com/stoxello/Eliocraft-Releases/releases/download/launcher-v1.10.15/Eliocraft-Launcher-1.10.15-win-x64.zip" target="_blank" rel="noopener">
+          ⬇ Download launcher v1.10.15
+          <span class="meta">win-x64.zip</span>
+        </a>
+        <a class="btn ghost" href="https://github.com/stoxello/Eliocraft-Releases/releases" target="_blank" rel="noopener">
+          View all releases
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="banner warn">
+    <div class="row">
+      <strong>Note:</strong> This is the local release page for the Eliocraft project. Download links point at the
+      official GitHub releases for <code>stoxello/Eliocraft-Releases</code>. Always verify the SHA-256 alongside your
+      download if you want to check integrity.
+    </div>
+  </div>
+
+  <section class="release latest">
+    <div class="release-head">
+      <span class="name">Eliocraft launcher 1.10.15</span>
+      <span class="version">launcher-v1.10.15</span>
+      <span class="date">Released 23 Sep 2026 · 17:50 UTC</span>
+    </div>
+    <div class="release-body">
+      <p>Windows x64 launcher build. Includes the latest client update and launcher fixes landed in this cycle.
+      This is the recommended download for Windows players.</p>
+      <div class="release-assets">
+        <a class="asset win" href="https://github.com/stoxello/Eliocraft-Releases/releases/download/launcher-v1.10.15/Eliocraft-Launcher-1.10.15-win-x64.zip" target="_blank" rel="noopener">
+          <span class="ico">📦</span> Eliocraft-Launcher-1.10.15-win-x64.zip
+        </a>
+        <a class="asset sha" href="https://github.com/stoxello/Eliocraft-Releases/releases/download/launcher-v1.10.15/Eliocraft-Launcher-1.10.15-win-x64.zip.sha256" target="_blank" rel="noopener">
+          <span class="ico">🔑</span> sha256
+        </a>
+        <a class="asset msix" href="https://github.com/stoxello/Eliocraft-Releases/releases/download/launcher-v1.10.15/Eliocraft-Launcher-1.10.15-x64.msix" target="_blank" rel="noopener">
+          <span class="ico">🪟</span> Eliocraft-Launcher-1.10.15-x64.msix
+        </a>
+      </div>
+      <div class="changelog">
+        Full Changelog: <a href="https://github.com/stoxello/Eliocraft-Releases/compare/launcher-v1.10.11...launcher-v1.10.15" target="_blank" rel="noopener">launcher-v1.10.11 → launcher-v1.10.15</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cols">
+    <div class="panel">
+      <h3>Recent launcher releases</h3>
+      <ul style="margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px;">
+        <li>
+          <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;">
+            <strong style="font-size:14px;">1.10.14</strong>
+            <span style="color:#8a9aa8; font-size:12px;">23 Sep 13:50</span>
+            <a class="btn ghost" style="margin-left:auto; padding:5px 11px; font-size:12px;" href="https://github.com/stoxello/Eliocraft-Releases/releases/tag/launcher-v1.10.14" target="_blank" rel="noopener">Details</a>
+          </div>
+        </li>
+        <li>
+          <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;">
+            <strong style="font-size:14px;">1.10.13</strong>
+            <span style="color:#8a9aa8; font-size:12px;">23 Sep 13:42</span>
+            <a class="btn ghost" style="margin-left:auto; padding:5px 11px; font-size:12px;" href="https://github.com/stoxello/Eliocraft-Releases/releases/tag/launcher-v1.10.13" target="_blank" rel="noopener">Details</a>
+          </div>
+        </li>
+        <li>
+          <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;">
+            <strong style="font-size:14px;">1.10.11</strong>
+            <span style="color:#8a9aa8; font-size:12px;">23 Sep 02:37</span>
+            <a class="btn ghost" style="margin-left:auto; padding:5px 11px; font-size:12px;" href="https://github.com/stoxello/Eliocraft-Releases/releases/tag/launcher-v1.10.11" target="_blank" rel="noopener">Details</a>
+          </div>
+        </li>
+        <li>
+          <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;">
+            <strong style="font-size:14px;">1.10.6</strong>
+            <span style="color:#8a9aa8; font-size:12px;">18 Sep 16:54</span>
+            <a class="btn ghost" style="margin-left:auto; padding:5px 11px; font-size:12px;" href="https://github.com/stoxello/Eliocraft-Releases/releases/tag/launcher-v1.10.6" target="_blank" rel="noopener">Details</a>
+          </div>
+        </li>
+        <li>
+          <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;">
+            <strong style="font-size:14px;">1.9.1</strong>
+            <span style="color:#8a9aa8; font-size:12px;">04 Sep 02:58</span>
+            <a class="btn ghost" style="margin-left:auto; padding:5px 11px; font-size:12px;" href="https://github.com/stoxello/Eliocraft-Releases/releases/tag/launcher-v1.9.1" target="_blank" rel="noopener">Details</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h3>Recent client releases</h3>
+      <ul style="margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px;">
+        <li>
+          <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;">
+            <strong style="font-size:14px;">1.10.10</strong>
+            <span style="color:#8a9aa8; font-size:12px;">22 Sep 23:57</span>
+            <a class="btn ghost" style="margin-left:auto; padding:5px 11px; font-size:12px;" href="https://github.com/stoxello/Eliocraft-Releases/releases/tag/client-v1.10.10" target="_blank" rel="noopener">Details</a>
+          </div>
+          <div style="font-size:12.5px; color:#7a8a98; margin-top:4px;">Linux, Windows, macOS assets available.</div>
+        </li>
+        <li>
+          <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;">
+            <strong style="font-size:14px;">1.10.5</strong>
+            <span style="color:#8a9aa8; font-size:12px;">18 Sep 16:07</span>
+            <a class="btn ghost" style="margin-left:auto; padding:5px 11px; font-size:12px;" href="https://github.com/stoxello/Eliocraft-Releases/releases/tag/client-v1.10.5" target="_blank" rel="noopener">Details</a>
+          </div>
+        </li>
+        <li>
+          <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;">
+            <strong style="font-size:14px;">1.9.13</strong>
+            <span style="color:#8a9aa8; font-size:12px;">08 Sep 02:35</span>
+            <a class="btn ghost" style="margin-left:auto; padding:5px 11px; font-size:12px;" href="https://github.com/stoxello/Eliocraft-Releases/releases/tag/client-v1.9.13" target="_blank" rel="noopener">Details</a>
+          </div>
+        </li>
+        <li>
+          <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;">
+            <strong style="font-size:14px;">1.9.0</strong>
+            <span style="color:#8a9aa8; font-size:12px;">04 Sep 02:17</span>
+            <a class="btn ghost" style="margin-left:auto; padding:5px 11px; font-size:12px;" href="https://github.com/stoxello/Eliocraft-Releases/releases/tag/client-v1.9.0" target="_blank" rel="noopener">Details</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h3>In-game screenshots</h3>
+    <p style="margin-bottom:14px;">Captures from the current release branch — Sep 2026.</p>
+    <div class="shots">
+      <figure class="shot">
+        <img src="images/gameplay-1.png" alt="In-game screenshot">
+        <figcaption class="cap">23 Sep 2026 — 13:14</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="images/gameplay-2.png" alt="In-game screenshot">
+        <figcaption class="cap">04 Sep 2026 — 13:22</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="images/gameplay-3.png" alt="In-game screenshot">
+        <figcaption class="cap">04 Sep 2026 — 13:16</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="images/gameplay-4.png" alt="In-game screenshot">
+        <figcaption class="cap">22 Jul 2026 — 16:09</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  </section>
+
+  <section class="cols">
+    <div class="panel">
+      <h3>What's in the launcher?</h3>
+      <ul class="feat">
+        <li>Auto-updates the game client to the latest compatible build.</li>
+        <li>Sign in with your Eliocraft account to load your profile and skins.</li>
+        <li>Pick a world or server and launch straight into gameplay.</li>
+        <li>Windows install via zip or MSIX; see the release archive for other platforms.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Need a different platform?</h3>
+      <p>Client releases for Linux and macOS are published alongside the launcher. Grab them from the
+      <a href="https://github.com/stoxello/Eliocraft-Releases/releases" target="_blank" rel="noopener">full releases page</a>
+      on GitHub — each tag includes the zip/tar.gz plus a SHA-256 file for verification.</p>
+      <a class="btn ghost" href="https://github.com/stoxello/Eliocraft-Releases/releases" target="_blank" rel="noopener">Browse all releases →</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Eliocraft releases &nbsp;·&nbsp; built from
+  <a href="https://github.com/stoxello/Eliocraft-Releases" target="_blank" rel="noopener">stoxello/Eliocraft-Releases</a>
+  &nbsp;·&nbsp; local assets from <code>C:\Users\User\source\repos\Eliocraft</code>
+</footer>
+</body>
+</html>
