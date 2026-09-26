@@ -3,9 +3,9 @@
   "latest": "1.10",
   "channels": {
     "1.10": {
-      "version": "1.10.10",
-      "url": "https://github.com/stoxello/Eliocraft-Releases/releases/download/client-v1.10.10/Eliocraft-1.10.10-win-x64.zip",
-      "sha256Url": "https://github.com/stoxello/Eliocraft-Releases/releases/download/client-v1.10.10/Eliocraft-1.10.10-win-x64.zip.sha256",
+      "version": "1.10.16",
+      "url": "https://github.com/stoxello/Eliocraft-Releases/releases/download/client-v1.10.16/Eliocraft-1.10.16-win-x64.zip",
+      "sha256Url": "https://github.com/stoxello/Eliocraft-Releases/releases/download/client-v1.10.16/Eliocraft-1.10.16-win-x64.zip.sha256",
       "executable": "Eliocraft.exe"
     },
     "1.9": {
@@ -13,12 +13,6 @@
       "url": "https://github.com/stoxello/Eliocraft-Releases/releases/download/client-v1.9.21/Eliocraft-1.9.21-win-x64.zip",
       "sha256Url": "https://github.com/stoxello/Eliocraft-Releases/releases/download/client-v1.9.21/Eliocraft-1.9.21-win-x64.zip.sha256",
       "executable": "Eliocraft.exe"
-    },
-    "1.8": {
-      "version": "1.8.0",
-      "url": "https://github.com/stoxello/Eliocraft-Releases/releases/download/client-v1.8.0/ChunkSurvival-1.8.0-win-x64.zip",
-      "sha256Url": "https://github.com/stoxello/Eliocraft-Releases/releases/download/client-v1.8.0/ChunkSurvival-1.8.0-win-x64.zip.sha256",
-      "executable": "ChunkSurvival.exe"
-    }
+    } 
   }
 }
